@@ -1,0 +1,44 @@
+header{
+    text-align: center;
+    font-size: 2em;
+    margin-bottom: .3em;
+}
+table {
+    
+    border: 1px solid;
+    width: 50%;
+    color: rgb(241, 241, 241);
+    padding-left: .5em;
+    padding-right: .5em;
+  }
+  
+  th {
+    padding: 10px;
+    text-align: center;
+    background-color: #974063;
+    color: #2E424D
+    font-style 'Avenir', sans-serif;
+  }
+
+  tr{
+    text-align: center;
+    
+  }
+  main {
+    text-align: center;
+    margin: auto;
+    width: 640px; 
+    padding: 50px;
+    font-family: 'Avenir', sans-serif; 
+    color: #974063;    
+    background-color:#EAEBED
+  }
+  footer{
+    text-align: center;
+    font-size: 1em;
+    margin-bottom: .3em;
+}
+
+td {
+    background-color: black;
+}
