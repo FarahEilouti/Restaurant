@@ -1,6 +1,7 @@
 'use strict';
 
 let IDCounter = 0;
+let myArrFood = [];
 
 function getUniqueID(){
     IDCounter = IDCounter + 1
@@ -11,13 +12,13 @@ function getUniqueID(){
 let submit = document.getElementById('submit');
 let table = document.getElementById('table');
 
-var val =0;
 
 function Food (id,name,type,price){
     this.id = id;
     this.name = name;
     this.type = type;
     this.price = price;
+    myArrFood.push(this);
 }
 
 Food.prototype.render = function(){
@@ -39,6 +40,7 @@ Food.prototype.render = function(){
     let newPrice = document.createElement('td');
     newPrice.textContent = this.price;
     newRow.appendChild(newPrice);
+    newRow.classList.add("newRow");
 }
 
 
@@ -46,7 +48,7 @@ let formFood = document.getElementById('form');
 formFood.addEventListener('submit', handleSubmit);
 
 function handleSubmit(event){
-    event.preventDefault(event);
+    event.preventDefault();
 
     let name = event.target.foodName.value;
     let type = event.target.foodType.value;
@@ -56,34 +58,28 @@ function handleSubmit(event){
     const newFood = new Food (id, name, type, price);
 
     newFood.render();
-    console.log(newFood);
-    localStorage.setItem("id", id);
-    localStorage.setItem("name", name);
-    localStorage.setItem("type", type);
-    localStorage.setItem("price", price);
-    LocalStorageRender();
-    localStorage.clear();
+    saveData(myArrFood);
 }
 
 let tableStats = document.getElementById('table2');
-function LocalStorageRender(){
-    let newRow = document.createElement('tr');
-    tableStats.appendChild(newRow);
 
-    let newId = document.createElement('td');
-    newId.textContent = localStorage.getItem("id");
-    newRow.appendChild(newId);
-
-    let newName = document.createElement('td');
-    newName.textContent =  localStorage.getItem("name");
-    newRow.appendChild(newName);
-
-    let newType = document.createElement('td');
-    newType.textContent =  localStorage.getItem("type");
-    newRow.appendChild(newType);
-
-    let newPrice = document.createElement('td');
-    newPrice.textContent = localStorage.getItem("price");
-    newRow.appendChild(newPrice);
+function saveData(data){
+    let String = JSON.stringify(data);
+    localStorage.setItem("food", String);
 }
+
+function getData(){
+    let retrievedData = localStorage.getItem("food");
+    let arrayData = JSON.parse(retrievedData);
+    
+    for (let i = 0; i < arrayData.length; i++){
+        new Food (arrayData[i].id, arrayData[i].name, arrayData[i].type, arrayData[i].price);
+    }
+    for (let i = 0; i < arrayData.length; i++){
+        myArrFood[i].render();
+    }
+
+}
+
+getData();
 
